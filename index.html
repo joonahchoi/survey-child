@@ -185,7 +185,8 @@
     document.querySelectorAll('input[name="exercise-days"]').forEach(function(input) {
         input.addEventListener('change', function() {
             var score = input.value; // 선택된 값
-            document.getElementById("activity-score").textContent = "나의 신체활동점수: " + score + "점";
+            realscore = score+1
+            document.getElementById("activity-score").textContent = "나의 신체활동점수: " + realscore + "점";
         });
     });
 </script>
