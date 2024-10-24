@@ -184,13 +184,12 @@
     // 라디오 버튼 클릭 시 점수를 표시하는 함수
     document.querySelectorAll('input[name="exercise-days"]').forEach(function(input) {
         input.addEventListener('change', function() {
-            var score = input.value; // 선택된 값
-            realscore = score+1
+            var score = parseInt(input.value); // 선택된 값을 숫자로 변환
+            var realscore = score + 1; // 1을 더해서 새로운 점수 계산
             document.getElementById("activity-score").textContent = "나의 신체활동점수: " + realscore + "점";
         });
     });
 </script>
-
     
 
     <hr>
