@@ -352,38 +352,41 @@
 <!-- 설문완료 버튼 -->
 <button type="button" onclick="calculateScore()">설문완료</button>
 
+<!-- 결과를 표시할 박스 -->
+<div class="box">
+    <h2 id="scaled-score-display">나의 식습관 점수: 선택하지 않음</h2>
+    <p>학습지에 나의 식습관 점수를 표시하세요!</p>
+</div>
+
 <script>
     function calculateScore() {
         var score1to7 = 0;
         var score8to14 = 0;
         var score15to19 = 0;
 
-        // 1번 ~ 7번 문항 계산 (각 선택값에 대해 (선택한 값 - 1) * 100 / 4 * 가중치)
+        // 1번 ~ 7번 문항 계산
         var weight1to7 = [0.146, 0.179, 0.102, 0.153, 0.092, 0.214, 0.114];
         for (var i = 1; i <= 7; i++) {
             var q = document.querySelector('input[name="question' + i + '"]:checked');
             if (q) {
-                // (선택한 값 - 1) * 100 / 4 * 가중치 계산
                 score1to7 += ((parseInt(q.value) - 1) * 100 / 4) * weight1to7[i - 1];
             }
         }
 
-        // 8번 ~ 14번 문항 계산 (각 선택값에 대해 (5 - 선택한 값) * 100 / 4 * 가중치)
+        // 8번 ~ 14번 문항 계산
         var weight8to14 = [0.168, 0.161, 0.172, 0.173, 0.113, 0.129, 0.084];
         for (var i = 8; i <= 14; i++) {
             var q = document.querySelector('input[name="question' + i + '"]:checked');
             if (q) {
-                // (5 - 선택한 값) * 100 / 4 * 가중치 계산
                 score8to14 += ((5 - parseInt(q.value)) * 100 / 4) * weight8to14[i - 8];
             }
         }
 
-        // 15번 ~ 19번 문항 계산 (각 선택값에 대해 (선택한 값 - 1) * 100 / 4 * 가중치)
+        // 15번 ~ 19번 문항 계산
         var weight15to19 = [0.288, 0.091, 0.087, 0.489, 0.045];
         for (var i = 15; i <= 19; i++) {
             var q = document.querySelector('input[name="question' + i + '"]:checked');
             if (q) {
-                // (선택한 값 - 1) * 100 / 4 * 가중치 계산
                 score15to19 += ((parseInt(q.value) - 1) * 100 / 4) * weight15to19[i - 15];
             }
         }
@@ -394,23 +397,10 @@
         // 환산점수 계산 (총점 / 10, 올림)
         var scaledScore = Math.ceil(totalScore / 10);
 
-
-
-       <!-- 결과를 표시할 박스 -->
-       <div class="box">
-           <h2 id="scaled-score-display">환산점수: 선택하지 않음</h2>
-           <p>학습지에 나의 식습관 점수를 표시하세요!</p>
-
-        </div>
-            
-         // 결과 출력
-
-         document.getElementById("scaled-score-display").textContent = "나의 식습관 점수: " + scaledScore + "점";
-        
+        // 결과 출력 (점수 부분만 빨간색으로 강조)
+        document.getElementById("scaled-score-display").innerHTML = 
+            "나의 식습관 점수는 <span style='color: red;'>" + scaledScore + "점</span> 입니다.";
     }
-
-        
-    
 </script>
 
 </body>
