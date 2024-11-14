@@ -132,7 +132,7 @@
 
     <script>
         function selectSleepType(type) {
-            document.getElementById("result-text").textContent = "나의 수면 유형: " +<span style='color: red;'> type</span>;
+            document.getElementById("result-text").textContent = "나의 수면 유형: <span style='color: red;'>" + type"</span>";
         }
     </script>
     <p> 활동지에 나의 수면 유형을 표시하세요! </p>
@@ -186,7 +186,7 @@
         input.addEventListener('change', function() {
             var score = parseInt(input.value); // 선택된 값을 숫자로 변환
             var realscore = score + 1; // 1을 더해서 새로운 점수 계산
-            document.getElementById("activity-score").textContent = "나의 신체활동점수: " + <span style='color: red;'> realscore </span> + "점";
+            document.getElementById("activity-score").textContent = "나의 신체활동점수:<span style='color: red;'> " +  realscore + "</span> 점";
         });
     });
 </script>
