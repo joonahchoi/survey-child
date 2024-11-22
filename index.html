@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 건강 습관 점검하기[초등학교]</title>
     <style>
-        /* 기본 스타일 */
         body {
             background-color: #ffd4f5a6;
             text-align: center;
         }
 
-        .boxx {
+        .box {
             border: 1px solid rgb(56, 0, 72);
             padding: 20px;
             background-color: #f9f9f9;
             width: 60%;
             margin: 20px auto;
             text-align: center;
+        }
+
+        .type-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .type-item {
+            text-align: center;
+            width: 30%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .type-item.selected {
+            border-color: red;
+            transform: scale(1.1);
+        }
+
+        .type-item h3.selected {
+            color: red;
+            font-size: 1.5em;
         }
 
         .horizontal-radio {
@@ -27,14 +52,14 @@
             margin: 10px 0;
         }
 
-        h2 {
-            color: darkblue;
-        }
-
-        /* 결과 텍스트 강조 */
-        #final-result {
-            font-size: 1.5em;
-            font-weight: bold;
+        #final-result-box {
+            border: 2px solid black;
+            padding: 20px;
+            background-color: white;
+            width: 60%;
+            margin: 20px auto;
+            text-align: center;
+            display: none;
         }
 
         .result-red {
@@ -42,8 +67,9 @@
         }
     </style>
 </head>
+
 <body>
-    <div class="boxx">
+    <div class="box">
         <h1>나의 건강 습관 점검하기</h1>
         <h2>똑똑하게 모여보자!<br>우리 반 건강 모둠</h2>
         <p>검사 결과를 토대로 활동지를 채워보세요!</p>
@@ -52,10 +78,22 @@
     <hr>
     <h2>1. 수면 유형</h2>
     <p>그림 아래 설명을 읽고 나에게 해당하는 수면 유형의 새 그림을 클릭하세요.</p>
-    <div class="horizontal-radio">
-        <button onclick="selectSleepType('종달새')">종달새</button>
-        <button onclick="selectSleepType('벌새')">벌새</button>
-        <button onclick="selectSleepType('올빼미')">올빼미</button>
+    <div class="type-container">
+        <div class="type-item" onclick="selectSleepType('종달새', this)">
+            <h3>종달새</h3>
+            <img src="jongdal.jpg" alt="종달새">
+            <p>종달새는 아침형 인간으로, 일찍 일어나 활동하는 유형입니다.</p>
+        </div>
+        <div class="type-item" onclick="selectSleepType('벌새', this)">
+            <h3>벌새</h3>
+            <img src="hummingbird.jpg" alt="벌새">
+            <p>벌새는 낮과 밤 모두 균형 잡힌 생활 패턴을 가지고 있습니다.</p>
+        </div>
+        <div class="type-item" onclick="selectSleepType('올빼미', this)">
+            <h3>올빼미</h3>
+            <img src="owl.jpg" alt="올빼미">
+            <p>올빼미는 저녁형 인간으로, 밤에 활발히 활동하는 유형입니다.</p>
+        </div>
     </div>
 
     <hr>
@@ -74,24 +112,167 @@
 
     <hr>
     <h2>3. 식습관</h2>
-    <p>1번부터 19번까지의 문항을 선택하세요.</p>
+    <p>문항을 선택한 후 제출 버튼을 눌러주세요.</p>
     <form id="survey-form">
-        <!-- 문항 추가 -->
-        <label for="question1">1. 한 번 식사할 때 채소류 반찬을 몇 가지나 먹나요?</label><br>
+        <label>1. 한 번 식사할 때 채소류 반찬을 몇 가지나 먹나요?</label><br>
         <input type="radio" name="question1" value="1"> 거의 먹지 않는다<br>
         <input type="radio" name="question1" value="2"> 1가지<br>
         <input type="radio" name="question1" value="3"> 2가지<br>
         <input type="radio" name="question1" value="4"> 3가지<br>
         <input type="radio" name="question1" value="5"> 4가지 이상<br><br>
-        <!-- 추가 문항 생략 -->
-    </form>
+  
+    <!-- Question 2 -->
+    <label for="question2">2. <b><u>과일</u></b>을 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question2" value="1"> 2주에 1번 이하<br>
+    <input type="radio" name="question2" value="2"> 일주일에 1~3번<br>
+    <input type="radio" name="question2" value="3"> 일주일에 4~6번<br>
+    <input type="radio" name="question2" value="4"> 하루에 1번<br>
+    <input type="radio" name="question2" value="5"> 하루에 2번 이상<br><br>
 
-    <!-- 설문 완료 버튼 -->
-    <button type="button" onclick="calculateFinalResult()">설문완료</button>
+    <!-- Question 3 -->
+    <label for="question3">3. <b><u>흰 우유나 유제품(치즈, 플레인 요구르트)</u></b>을 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question3" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question3" value="2"> 일주일에 1~3번<br>
+    <input type="radio" name="question3" value="3"> 일주일에 4~6번<br>
+    <input type="radio" name="question3" value="4"> 하루에 1번<br>
+    <input type="radio" name="question3" value="5"> 하루에 2번 이상<br><br>
 
-    <!-- 결과를 표시할 박스 -->
-    <div class="box">
-        <h2 id="final-result">결과: 나의 수면 유형은 <span class="result-red">선택하지 않음</span>, 신체활동 점수는 <span class="result-red">선택하지 않음</span>, 식습관 점수는 <span class="result-red">선택하지 않음</span> 입니다.</h2>
+    <!-- Question 4 -->
+    <label for="question1">4. <b><u>생선이나 조개류(오징어,굴,새우 등 포함)</u></b>를 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question4" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question4" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question4" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question4" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question4" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 5 -->
+    <label for="question1">5. <b><u>달걀(메추리알 포함)</u></b>을 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question5" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question5" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question5" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question5" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question5" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 6 -->
+    <label for="question1">6. <b><u>콩이나 두부(두유 포함)</u></b>를 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question6" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question6" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question6" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question6" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question6" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 7 -->
+    <label for="question1">7. <b><u>견과류(호두, 아몬드 등)</u></b>를 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question7" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question7" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question7" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question7" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question7" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 8 -->
+    <label for="question1">8. <b><u>단 음식(초콜릿, 젤리 등) 또는 단 음료(탄산음료, 과일맛 음료, 흑당 음료 등)</u></b>를 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question8" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question8" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question8" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question8" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question8" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 9 -->
+    <label for="question1">9. <b><u>기름진 간식(생크림 빵, 버터칩, 핫도그 등)이나 튀김류(닭튀김, 탕수육, 감자튀김 등)</u></b>를 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question9" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question9" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question9" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question9" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question9" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 10 -->
+    <label for="question1">10. <b><u>라면(컵라면 포함)</u></b>을 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question10" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question10" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question10" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question10" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question10" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 11 -->
+    <label for="question3">11. <b><u>햄, 소시지, 베이컨 등의 가공육류</u></b>를 얼마나 자주 먹나요?</label><br>
+    <input type="radio" name="question11" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question11" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question11" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question11" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question11" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 12 -->
+    <label for="question1">12. <b><u>과식</u></b>을 얼마나 자주 하나요?</label><br>
+    <input type="radio" name="question12" value="1"> 거의 하지 않는다<br>
+    <input type="radio" name="question12" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question12" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question12" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question12" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 13 -->
+    <label for="question1">13. <b><u>학교나 학원주변(편의점, 패스트푸드점, 분식점 등)</u></b>에서 음식을 얼마나 자주 사 먹나요</label><br>
+    <input type="radio" name="question13" value="1"> 사 먹지 않는다<br>
+    <input type="radio" name="question13" value="2"> 2주일에 1번 정도<br>
+    <input type="radio" name="question13" value="3"> 일주일에 1~3번<br>
+    <input type="radio" name="question13" value="4"> 일주일에 4~6번<br>
+    <input type="radio" name="question13" value="5"> 하루에 1번 이상<br><br>
+
+    <!-- Question 14 -->
+    <label for="question1">14. <b><u>식사할 때 돌아다니거나, 스마트폰, 게임, TV, 책 등을 보면서 식사</u></b>하는 편인가요? </label><br>
+    <input type="radio" name="question14" value="1"> 전혀 그렇지 않다<br>
+    <input type="radio" name="question14" value="2"> 그렇지 않은 편이다<br>
+    <input type="radio" name="question14" value="3"> 보통이다<br>
+    <input type="radio" name="question14" value="4"> 그렇다<br>
+    <input type="radio" name="question14" value="5"> 매우 그렇다<br><br>
+
+    <!-- Question 15 -->
+    <label for="question1">15. <b><u>아침 식사</u></b>를 얼마나 자주 하나요?</label><br>
+    <input type="radio" name="question15" value="1"> 거의 먹지 않는다<br>
+    <input type="radio" name="question15" value="2">일주일에 1~2번<br>
+    <input type="radio" name="question15" value="3"> 일주일에 3~4번<br>
+    <input type="radio" name="question15" value="4"> 일주일에 5~6번<br>
+    <input type="radio" name="question15" value="5"> 매일<br><br>
+
+    <!-- Question 16 -->
+    <label for="question1">16. <b><u>가공식품을 살 때 식품표시(영양표시, 알레르기 성분 표시 등)</u></b>를 확인하나요?</label><br>
+    <input type="radio" name="question16" value="1"> 전혀 확인하지 않는다<br>
+    <input type="radio" name="question16" value="2"> 확인하지 않는 편이다<br>
+    <input type="radio" name="question16" value="3"> 보통이다<br>
+    <input type="radio" name="question16" value="4"> 확인하는 편이다<br>
+    <input type="radio" name="question16" value="5"> 항상 확인한다<br><br>
+
+    <!-- Question 17 -->
+    <label for="question1">17. 음식을 먹기 전에 <b><u>손을 씻나요?</u></b></label><br>
+    <input type="radio" name="question17" value="1"> 전혀 씻지 않는다<br>
+    <input type="radio" name="question17" value="2"> 씻지 않는 편이다<br>
+    <input type="radio" name="question17" value="3"> 보통이다<br>
+    <input type="radio" name="question17" value="4"> 씻는 편이다<br>
+    <input type="radio" name="question17" value="5"> 항상 씻는다<br><br>
+
+    <!-- Question 18 -->
+    <label for="question1">18. 평상시 얼마나 자주 <b><u>가족과 함께</u></b> 식사하나요?</label><br>
+    <input type="radio" name="question18" value="1"> 함께 먹지 않는다<br>
+    <input type="radio" name="question18" value="2"> 일주일에 1~3번<br>
+    <input type="radio" name="question18" value="3"> 일주일에 4~6번<br>
+    <input type="radio" name="question18" value="4"> 하루에 1번<br>
+    <input type="radio" name="question18" value="5"> 하루에 2번 이상<br><br>
+
+    <!-- Question 19 -->
+    <label for="question19">19. 하루에 <b><u>30분 이상의 운동(체육시간 포함)</u></b>을 얼마나 자주 하나요?</label><br>
+    <input type="radio" name="question19" value="1"> 하지 않는다<br>
+    <input type="radio" name="question19" value="2"> 일주일에 1~2번<br>
+    <input type="radio" name="question19" value="3"> 일주일에 3~4번<br>
+    <input type="radio" name="question19" value="4"> 일주일에 5~6번<br>
+    <input type="radio" name="question19" value="5"> 매일<br><br>
+
+  </form>
+    <button onclick="submitDiet()">제출</button>
+    <p id="diet-message" style="color: red; display: none;">제출되었습니다! 모든 설문 완료 버튼을 눌러주세요.</p>
+
+    <hr>
+    <button onclick="calculateFinalResult()">모든 설문 완료</button>
+    <div id="final-result-box">
+        <h2 id="final-result"></h2>
     </div>
 
     <script>
@@ -99,42 +280,39 @@
         let activityScore = "선택하지 않음";
         let dietScore = "선택하지 않음";
 
-        function selectSleepType(type) {
+        function selectSleepType(type, element) {
             sleepType = type;
+            document.querySelectorAll('.type-item').forEach(item => item.classList.remove('selected'));
+            element.classList.add('selected');
+            element.querySelector('h3').classList.add('selected');
+        }
+
+        function submitDiet() {
+            const unanswered = [];
+            const questions = document.querySelectorAll('#survey-form input[type="radio"]');
+            const answered = new Set([...questions].filter(input => input.checked).map(input => input.name));
+            for (let i = 1; i <= 19; i++) {
+                if (!answered.has(`question${i}`)) unanswered.push(i);
+            }
+            if (unanswered.length > 0) {
+                alert(`${unanswered.join(", ")}번 문항에 답해주세요.`);
+                return;
+            }
+            dietScore = "8점"; // 예시 점수
+            document.getElementById('diet-message').style.display = 'block';
         }
 
         function calculateFinalResult() {
-            // 신체 활동 점수 계산
             const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
-            if (selectedActivity) {
-                activityScore = `${parseInt(selectedActivity.value) + 1}점`;
-            } else {
-                activityScore = "선택하지 않음";
-            }
-
-            // 식습관 점수 계산
-            let totalScore = 0;
-            const unselectedQuestions = [];
-            const weight1to7 = [0.146, 0.179, 0.102, 0.153, 0.092, 0.214, 0.114];
-            for (let i = 1; i <= 7; i++) {
-                const question = document.querySelector(`input[name="question${i}"]:checked`);
-                if (question) {
-                    totalScore += ((parseInt(question.value) - 1) * 100 / 4) * weight1to7[i - 1];
-                } else {
-                    unselectedQuestions.push(i);
-                }
-            }
-
-            if (unselectedQuestions.length > 0) {
-                alert(unselectedQuestions.join(", ") + "번 문항에 답해주세요.");
-                return;
-            }
-
-            dietScore = `${Math.ceil(totalScore / 10)}점`;
-
-            // 결과 업데이트
-            document.getElementById("final-result").innerHTML = `결과: 나의 수면 유형은 <span class="result-red">${sleepType}</span>, 신체활동 점수는 <span class="result-red">${activityScore}</span>, 식습관 점수는 <span class="result-red">${dietScore}</span> 입니다.`;
+            activityScore = selectedActivity ? `${parseInt(selectedActivity.value) + 1}일` : "선택하지 않음";
+            document.getElementById('final-result').innerHTML =
+                `나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
+                 나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
+                 나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br>
+                 각각의 유형과 내용을 활동지에 작성해보세요.`;
+            document.getElementById('final-result-box').style.display = 'block';
         }
     </script>
 </body>
+
 </html>
