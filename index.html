@@ -65,6 +65,13 @@
         .result-red {
             color: red;
         }
+
+        input[type="radio"]:checked + label {
+    color: red;
+    font-weight: bold;
+}
+
+        
     </style>
 </head>
 <body>
@@ -98,18 +105,53 @@
     <hr>
     <h2>2. 신체 활동</h2>
     <p>일주일간 60분 이상 운동한 날은 몇 일인가요? (체육시간 포함X)</p>
-    <div class="horizontal-radio">
-        <label><input type="radio" name="exercise-days" value="0"> 0일</label>
-        <label><input type="radio" name="exercise-days" value="1"> 1일</label>
-        <label><input type="radio" name="exercise-days" value="2"> 2일</label>
-        <label><input type="radio" name="exercise-days" value="3"> 3일</label>
-        <label><input type="radio" name="exercise-days" value="4"> 4일</label>
-        <label><input type="radio" name="exercise-days" value="5"> 5일</label>
-        <label><input type="radio" name="exercise-days" value="6"> 6일</label>
-        <label><input type="radio" name="exercise-days" value="7"> 7일</label>
-    </div>
 
+<div class="horizontal-radio">
+    <input type="radio" id="exercise-0" name="exercise-days" value="0">
+    <label for="exercise-0">0일</label>
+    
+    <input type="radio" id="exercise-1" name="exercise-days" value="1">
+    <label for="exercise-1">1일</label>
+    
+    <input type="radio" id="exercise-2" name="exercise-days" value="2">
+    <label for="exercise-2">2일</label>
+    
+    <input type="radio" id="exercise-3" name="exercise-days" value="3">
+    <label for="exercise-3">3일</label>
+    
+    <input type="radio" id="exercise-4" name="exercise-days" value="4">
+    <label for="exercise-4">4일</label>
+    
+    <input type="radio" id="exercise-5" name="exercise-days" value="5">
+    <label for="exercise-5">5일</label>
+    
+    <input type="radio" id="exercise-6" name="exercise-days" value="6">
+    <label for="exercise-6">6일</label>
+    
+    <input type="radio" id="exercise-7" name="exercise-days" value="7">
+    <label for="exercise-7">7일</label>
+</div>
 
+<style>
+    form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label {
+    width: 80%; /* 중앙 정렬에 가까운 넓이 */
+    text-align: left; /* 텍스트는 좌측 정렬 */
+    margin-bottom: 10px;
+}
+
+form input {
+    margin-left: 10px; /* 라디오 버튼과 텍스트 사이 간격 */
+}
+
+</style>
+
+    
     
     <hr>
     <h2>3. 식습관</h2>
@@ -294,16 +336,17 @@
             const unanswered = [];
             const questions = document.querySelectorAll('#survey-form input[type="radio"]');
             const answered = new Set([...questions].filter(input => input.checked).map(input => input.name));
-            for (let i = 1; i <= 1; i++) { // 문항 번호를 올바르게
+            for (let i = 1; i <= 19; i++) { // 설문 문항 수만큼 반복
                 if (!answered.has(`question${i}`)) unanswered.push(i);
             }
             if (unanswered.length > 0) {
                 alert(`${unanswered.join(", ")}번 문항에 답해주세요.`);
                 return;
             }
-            dietScore = "8점";
+            dietScore = "8점"; // 예시 점수
             document.getElementById('diet-message').style.display = 'block';
         }
+
 
         function calculateFinalResult() {
             const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
