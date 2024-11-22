@@ -133,24 +133,27 @@
 </div>
 
 <style>
+
+    /* 질문과 보기를 정렬 */
 form {
     display: flex;
     flex-direction: column;
-    align-items: left; 
-    width: 80%; /* 폼의 전체 너비 (중앙 정렬을 위해 적당히 설정) */
-    margin: 0 auto; /* 화면 중앙에 배치 */
+    align-items: center; /* 폼 전체를 중앙에 배치 */
+    width: 80%; /* 폼의 너비를 적절히 조정 */
+    margin: 0 auto; /* 화면 중앙에 위치 */
 }
 
 form label {
+    display: flex; /* 라디오 버튼과 텍스트를 한 줄에 배치 */
+    align-items: center; /* 라디오 버튼과 텍스트 세로 정렬 */
     text-align: left; /* 텍스트 좌측 정렬 */
-    width: 100%; /* 질문과 보기가 너비를 공유 */
-    margin-bottom: 10px; /* 질문과 보기 간 간격 추가 */
+    width: 100%; /* 질문과 보기를 동일한 너비로 설정 */
+    margin-bottom: 10px; /* 항목 간 간격 추가 */
 }
 
 form input[type="radio"] {
-    margin-right: 10px; /* 라디오 버튼과 텍스트 간 간격 */
+    margin-right: 10px; /* 라디오 버튼과 텍스트 간 여백 */
 }
-
 </style>
 
     
