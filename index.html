@@ -6,14 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 건강 습관 점검하기[초등학교]</title>
     <style>
-
-        .type-item {
-    border: 1px solid transparent;
-    padding: 10px;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-        
         body {
             background-color: #ffd4f5a6;
             text-align: center;
@@ -42,11 +34,12 @@
     object-fit: cover; /* 이미지 비율을 유지하면서 크기를 조정 */
 }
 
-
         .type-item.selected {
-            border-color: red;
-            transform: scale(1.1);
-        }
+    border: 2px solid red; /* 빨간색 테두리 추가 */
+    transform: scale(1.1); /* 선택된 항목 확대 */
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5); /* 약간의 그림자 효과 */
+}
+
 
         .type-item h3.selected {
             color: red;
@@ -111,32 +104,22 @@
     <hr>
     <h2>2. 신체 활동</h2>
     <p>일주일간 60분 이상 운동한 날은 몇 일인가요? (체육시간 포함X)</p>
-
-<div class="horizontal-radio">
-    <input type="radio" id="exercise-0" name="exercise-days" value="0">
-    <label for="exercise-0">0일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">1일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">2일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">3일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">4일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">5일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">6일</label>
-    <input type="radio" id="exercise-1" name="exercise-days" value="1">
-    <label for="exercise-1">7일</label>
-</div>
+    <div class="horizontal-radio">
+        <label><input type="radio" name="exercise-days" value="0"> 0일</label>
+        <label><input type="radio" name="exercise-days" value="1"> 1일</label>
+        <label><input type="radio" name="exercise-days" value="2"> 2일</label>
+        <label><input type="radio" name="exercise-days" value="3"> 3일</label>
+        <label><input type="radio" name="exercise-days" value="4"> 4일</label>
+        <label><input type="radio" name="exercise-days" value="5"> 5일</label>
+        <label><input type="radio" name="exercise-days" value="6"> 6일</label>
+        <label><input type="radio" name="exercise-days" value="7"> 7일</label>
+    </div>
 
     <hr>
     <h2>3. 식습관</h2>
     <p>문항을 선택한 후 제출 버튼을 눌러주세요.</p>
 
-
-<style>
+    
     /* 식습관 설문 문항 조정 */
     form {
         text-align: center; /* 폼 자체는 가운데 정렬 */
@@ -151,53 +134,16 @@
     form input {
         margin-left: 20px; /* 라디오 버튼 텍스트와의 간격 조정 */
     }
-    
-.horizontal-radio label {
-    color: black;
-    font-weight: normal;
-    margin: 0 5px;
-}
-
-.horizontal-radio input[type="radio"]:checked + label {
-    color: red;
-    font-weight: bold;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.options label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#final-result-box {
-    display: none;
-    width: 60%;
-    margin: 20px auto;
-    padding: 20px;
-    border: 2px solid black;
-    background-color: white;
-    text-align: center;
-}
-
-    
-    
 </style>
-
-<form id="survey-form">
-    <label>1. 한 번 식사할 때 채소류 반찬을 몇 가지나 먹나요?</label>
-    <div class="options">
-    <label><input type="radio" name="question1" value="1"> 거의 먹지 않는다</label>
-    <label><input type="radio" name="question1" value="2"> 1가지</label>
-    <label><input type="radio" name="question1" value="3"> 2가지<br>
-    <label><input type="radio" name="question1" value="4"> 3가지<br>
-    <label><input type="radio" name="question1" value="5"> 4가지 이상<br><br>
-        
-
+    
+    <form id="survey-form">
+        <label>1. 한 번 식사할 때 채소류 반찬을 몇 가지나 먹나요?</label><br>
+        <input type="radio" name="question1" value="1"> 거의 먹지 않는다<br>
+        <input type="radio" name="question1" value="2"> 1가지<br>
+        <input type="radio" name="question1" value="3"> 2가지<br>
+        <input type="radio" name="question1" value="4"> 3가지<br>
+        <input type="radio" name="question1" value="5"> 4가지 이상<br><br>
+  
     <!-- Question 2 -->
     <label for="question2">2. <b><u>과일</u></b>을 얼마나 자주 먹나요?</label><br>
     <input type="radio" name="question2" value="1"> 2주에 1번 이하<br>
@@ -347,16 +293,10 @@
     <p id="diet-message" style="color: red; display: none;">제출되었습니다! 모든 설문 완료 버튼을 눌러주세요.</p>
 
     <hr>
-
-<!-- 결과 박스 이동 -->
-<div id="final-result-box">
-    <h2 id="final-result"></h2>
-</div>
-
-<!-- 버튼 위치 -->
-<button onclick="calculateFinalResult()">모든 설문 완료</button>
-        
-
+    <button onclick="calculateFinalResult()">모든 설문 완료</button>
+    <div id="final-result-box">
+        <h2 id="final-result"></h2>
+    </div>
 
     <script>
         let sleepType = "선택하지 않음";
@@ -395,7 +335,6 @@
                  각각의 유형과 내용을 활동지에 작성해보세요♥;
             document.getElementById('final-result-box').style.display = 'block';
         }
-
     </script>
 </body>
 
