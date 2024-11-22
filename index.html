@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,19 +26,18 @@
             margin-top: 20px;
         }
 
-        .type-item img{
-            width: auto; /* 너비를 자동으로 조정 */
-            height: 150px; /* 높이를 고정 */
-            max-width: 100%; /* 부모 컨테이너 너비를 초과하지 않도록 제한 */
-            object-fit: cover; /* 이미지 비율을 유지하면서 크기를 조정 */
-        }
-    
-        .type-item.selected {
-            border: 2px solid red; /* 빨간색 테두리 추가 */
-            transform: scale(1.1); /* 선택된 항목 확대 */
-            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5); /* 약간의 그림자 효과 */
+        .type-item img {
+            width: auto;
+            height: 150px;
+            max-width: 100%;
+            object-fit: cover;
         }
 
+        .type-item.selected {
+            border: 2px solid red; /* 빨간 테두리 추가 */
+            transform: scale(1.1);
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+        }
 
         .type-item h3.selected {
             color: red;
@@ -53,26 +51,22 @@
             margin: 10px 0;
         }
 
-    .final-box {
-        position: absolute; /* 위치를 버튼 위로 조정 */
-        top: -200px; /* 버튼에서 위로 200px 띄움 */
-        left: 50%;
-        transform: translateX(-50%); /* 가운데 정렬 */
-        width: 60%; /* 박스 너비 */
-        padding: 20px;
-        border: 2px solid black;
-        background-color: white;
-        text-align: center;
-        display: none; /* 기본은 숨김 상태 */
-        z-index: 10; /* 버튼보다 위로 오게 */
-    }
+        .final-box {
+            position: relative;
+            margin-top: 20px;
+            width: 60%;
+            padding: 20px;
+            border: 2px solid black;
+            background-color: white;
+            text-align: center;
+            display: none;
+        }
 
         .result-red {
             color: red;
         }
     </style>
 </head>
-
 <body>
     <div class="box">
         <h1>나의 건강 습관 점검하기</h1>
@@ -115,28 +109,14 @@
         <label><input type="radio" name="exercise-days" value="7"> 7일</label>
     </div>
 
+
+    
     <hr>
     <h2>3. 식습관</h2>
     <p>문항을 선택한 후 제출 버튼을 눌러주세요.</p>
-
-    <style>
-    /* 식습관 설문 문항 조정 */
-    form {
-        text-align: center; /* 폼 자체는 가운데 정렬 */
-    }
-
-    form label {
-        text-align: left; /* 문항 텍스트 왼쪽 정렬 */
-        display: block; /* 각 문항이 한 줄로 나열되도록 설정 */
-        margin-bottom: 10px; /* 문항 간 간격 추가 */
-    }
-
-    form input {
-        margin-left: 20px; /* 라디오 버튼 텍스트와의 간격 조정 */
-    }
-</style>
-    
     <form id="survey-form">
+      
+        
         <label>1. 한 번 식사할 때 채소류 반찬을 몇 가지나 먹나요?</label><br>
         <input type="radio" name="question1" value="1"> 거의 먹지 않는다<br>
         <input type="radio" name="question1" value="2"> 1가지<br>
@@ -289,7 +269,7 @@
     <input type="radio" name="question19" value="5"> 매일<br><br>
 
   </form>
-    <button onclick="submitDiet()">제출</button>
+      <button onclick="submitDiet()">제출</button>
     <p id="diet-message" style="color: red; display: none;">제출되었습니다! 모든 설문 완료 버튼을 눌러주세요.</p>
 
     <hr>
@@ -310,34 +290,34 @@
             element.querySelector('h3').classList.add('selected');
         }
 
-function submitDiet() {
-    const unanswered = [];
-    const questions = document.querySelectorAll('#survey-form input[type="radio"]');
-    const answered = new Set([...questions].filter(input => input.checked).map(input => input.name));
-    for (let i = 1; i <= 19; i++) {
-        if (!answered.has(`question${i}`)) unanswered.push(i); // 문자열 템플릿 수정
-    }
-    if (unanswered.length > 0) {
-        alert(`${unanswered.join(", ")}번 문항에 답해주세요.`); // 템플릿 리터럴 수정
-        return;
-    }
-    dietScore = "8점"; // 예시 점수
-    document.getElementById('diet-message').style.display = 'block';
-}
+        function submitDiet() {
+            const unanswered = [];
+            const questions = document.querySelectorAll('#survey-form input[type="radio"]');
+            const answered = new Set([...questions].filter(input => input.checked).map(input => input.name));
+            for (let i = 1; i <= 1; i++) { // 문항 번호를 올바르게
+                if (!answered.has(`question${i}`)) unanswered.push(i);
+            }
+            if (unanswered.length > 0) {
+                alert(`${unanswered.join(", ")}번 문항에 답해주세요.`);
+                return;
+            }
+            dietScore = "8점";
+            document.getElementById('diet-message').style.display = 'block';
+        }
 
-function calculateFinalResult() {
-    const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
-    activityScore = selectedActivity ? `${parseInt(selectedActivity.value) + 1}일` : "선택하지 않음"; // 문자열 템플릿 수정
-    document.getElementById('final-result').innerHTML = `
-        나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
-        나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
-        나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br><br>
-        각각의 유형과 내용을 활동지에 작성해보세요♥
-    `;
-    document.getElementById('final-result-box').style.display = 'block';
-}
-        
+        function calculateFinalResult() {
+            const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
+            activityScore = selectedActivity ? `${parseInt(selectedActivity.value)}일` : "선택하지 않음";
+            document.getElementById('final-result').innerHTML = `
+                나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
+                나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
+                나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br><br>
+                각각의 유형과 내용을 활동지에 작성해보세요♥
+            `;
+            document.getElementById('final-result-box').style.display = 'block';
+        }
     </script>
 </body>
-
 </html>
+
+
