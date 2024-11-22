@@ -138,15 +138,19 @@
     flex-direction: column;
     align-items: center;
 }
-
+    
+/* 질문 부분 스타일 */
 form label {
-    width: 80%; /* 중앙 정렬에 가까운 넓이 */
-    text-align: left; /* 텍스트는 좌측 정렬 */
+    text-align: left;
+    width: 80%;
+    margin: 0 auto; /* 중앙 정렬 */
     margin-bottom: 10px;
+    display: block; /* 각 질문과 보기 한 줄 */
 }
 
-form input {
-    margin-left: 10px; /* 라디오 버튼과 텍스트 사이 간격 */
+/* 보기를 질문 시작 지점에 맞추기 */
+form input[type="radio"] {
+    margin-left: 10px; /* 보기와 텍스트 간 간격 */
 }
 
 </style>
@@ -312,13 +316,32 @@ form input {
 
   </form>
       <button onclick="submitDiet()">제출</button>
-    <p id="diet-message" style="color: red; display: none;">제출되었습니다! 모든 설문 완료 버튼을 눌러주세요.</p>
+    <p id="diet-message" style="color: red; display: none;">제출되었습니다! [모든 설문 완료] 버튼을 눌러주세요.</p>
 
     <hr>
-    <button onclick="calculateFinalResult()">모든 설문 완료</button>
+    
+ #final-result-box {
+    border: 2px solid black; /* 테두리 추가 */
+    background-color: white; /* 배경 흰색 */
+    padding: 20px; /* 내용과 박스 사이 여백 */
+    width: 60%; /* 박스 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    text-align: center;
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면 중앙에 고정 */
+    top: 50%; /* 화면 상단에서 50% 지점 */
+    left: 50%; /* 화면 좌측에서 50% 지점 */
+    transform: translate(-50%, -50%); /* 정확한 화면 중앙 배치 */
+    z-index: 100; /* 다른 요소 위에 배치 */
+}
+
     <div id="final-result-box">
         <h2 id="final-result"></h2>
     </div>
+
+    
+    <button onclick="calculateFinalResult()">모든 설문 완료</button>
+
 
     <script>
         let sleepType = "선택하지 않음";
@@ -347,18 +370,22 @@ form input {
             document.getElementById('diet-message').style.display = 'block';
         }
 
+function calculateFinalResult() {
+    const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
+    activityScore = selectedActivity ? `${parseInt(selectedActivity.value)}일` : "선택하지 않음";
+    document.getElementById('final-result').innerHTML = `
+        나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
+        나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
+        나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br><br>
+        각각의 유형과 내용을 활동지에 작성해보세요♥
+    `;
+    const resultBox = document.getElementById('final-result-box');
+    resultBox.style.display = 'block';
 
-        function calculateFinalResult() {
-            const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
-            activityScore = selectedActivity ? `${parseInt(selectedActivity.value)}일` : "선택하지 않음";
-            document.getElementById('final-result').innerHTML = `
-                나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
-                나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
-                나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br><br>
-                각각의 유형과 내용을 활동지에 작성해보세요♥
-            `;
-            document.getElementById('final-result-box').style.display = 'block';
-        }
+    // 화면을 결과 박스로 스크롤
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
     </script>
 </body>
 </html>
