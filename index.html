@@ -310,31 +310,33 @@
             element.querySelector('h3').classList.add('selected');
         }
 
-        function submitDiet() {
-            const unanswered = [];
-            const questions = document.querySelectorAll('#survey-form input[type="radio"]');
-            const answered = new Set([...questions].filter(input => input.checked).map(input => input.name));
-            for (let i = 1; i <= 19; i++) {
-                if (!answered.has(question${i})) unanswered.push(i);
-            }
-            if (unanswered.length > 0) {
-                alert(${unanswered.join(", ")}번 문항에 답해주세요.);
-                return;
-            }
-            dietScore = "8점"; // 예시 점수
-            document.getElementById('diet-message').style.display = 'block';
-        }
+function submitDiet() {
+    const unanswered = [];
+    const questions = document.querySelectorAll('#survey-form input[type="radio"]');
+    const answered = new Set([...questions].filter(input => input.checked).map(input => input.name));
+    for (let i = 1; i <= 19; i++) {
+        if (!answered.has(`question${i}`)) unanswered.push(i); // 문자열 템플릿 수정
+    }
+    if (unanswered.length > 0) {
+        alert(`${unanswered.join(", ")}번 문항에 답해주세요.`); // 템플릿 리터럴 수정
+        return;
+    }
+    dietScore = "8점"; // 예시 점수
+    document.getElementById('diet-message').style.display = 'block';
+}
 
-        function calculateFinalResult() {
-            const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
-            activityScore = selectedActivity ? ${parseInt(selectedActivity.value) + 1}일 : "선택하지 않음";
-            document.getElementById('final-result').innerHTML =
-                나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
-                 나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
-                 나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br><br>
-                 각각의 유형과 내용을 활동지에 작성해보세요♥;
-            document.getElementById('final-result-box').style.display = 'block';
-        }
+function calculateFinalResult() {
+    const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
+    activityScore = selectedActivity ? `${parseInt(selectedActivity.value) + 1}일` : "선택하지 않음"; // 문자열 템플릿 수정
+    document.getElementById('final-result').innerHTML = `
+        나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
+        나의 식습관 점수 : <span class="result-red">${dietScore}</span><br>
+        나의 신체활동 점수 : <span class="result-red">${activityScore}</span><br><br>
+        각각의 유형과 내용을 활동지에 작성해보세요♥
+    `;
+    document.getElementById('final-result-box').style.display = 'block';
+}
+        
     </script>
 </body>
 
