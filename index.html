@@ -823,7 +823,7 @@
     <!-- 개발자 정보 -->
     <div style="text-align: center; margin-top: 50px; padding: 20px;">
         <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.85em; font-weight: 300;">
-            Developed by 수성중학교 최준아(ja960611@naver.com)
+            Developed by 수성중학교 최준아
         </p>
     </div>
 
@@ -850,16 +850,42 @@
                 return;
             }
             
-            // Calculate actual diet score
-            let totalScore = 0;
+            // 각 문항의 점수를 0-100점으로 변환
+            const scores = [];
             for (let i = 1; i <= 19; i++) {
                 const selected = document.querySelector(`input[name="question${i}"]:checked`);
-                if (selected) {
-                    totalScore += parseInt(selected.value);
+                const value = parseInt(selected.value);
+                
+                // 정방향 문항 (1-7, 15-19): (선택값-1)*100/4
+                // 역방향 문항 (8-14): (5-선택값)*100/4
+                if (i <= 7 || i >= 15) {
+                    scores[i] = (value - 1) * 100 / 4;
+                } else {
+                    scores[i] = (5 - value) * 100 / 4;
                 }
             }
             
-            dietScore = `${totalScore}점`;
+            // 균형 영역 점수 (Q1-Q7의 가중평균)
+            const balance = scores[1] * 0.146 + scores[2] * 0.179 + scores[3] * 0.102 + 
+                          scores[4] * 0.153 + scores[5] * 0.092 + scores[6] * 0.214 + 
+                          scores[7] * 0.114;
+            
+            // 절제 영역 점수 (Q8-Q14의 가중평균)
+            const moderation = scores[8] * 0.168 + scores[9] * 0.161 + scores[10] * 0.172 + 
+                             scores[11] * 0.173 + scores[12] * 0.113 + scores[13] * 0.129 + 
+                             scores[14] * 0.084;
+            
+            // 실천 영역 점수 (Q15-Q19의 가중평균)
+            const practice = scores[15] * 0.288 + scores[16] * 0.091 + scores[17] * 0.087 + 
+                           scores[18] * 0.489 + scores[19] * 0.045;
+            
+            // 최종 영양지수 (100점 만점)
+            const nutritionIndex = balance * 0.15 + moderation * 0.2 + practice * 0.65;
+            
+            // 10점 만점으로 변환 (반올림)
+            const finalScore = Math.round(nutritionIndex / 10);
+            
+            dietScore = `${finalScore}점`;
             document.getElementById('diet-message').style.display = 'block';
         }
 
