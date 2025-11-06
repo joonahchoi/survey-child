@@ -891,7 +891,7 @@
 
         function calculateFinalResult() {
             const selectedActivity = document.querySelector('input[name="exercise-days"]:checked');
-            activityScore = selectedActivity ? `${parseInt(selectedActivity.value)}일` : "선택하지 않음";
+            activityScore = selectedActivity ? `${parseInt(selectedActivity.value)}점` : "선택하지 않음";
             
             document.getElementById('final-result').innerHTML = `
                 나의 수면 유형 : <span class="result-red">${sleepType}</span><br>
